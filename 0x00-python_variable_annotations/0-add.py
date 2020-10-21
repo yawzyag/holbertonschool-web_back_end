@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""async await
-tip for basic use of async await
+"""basic add operation
+sum two numbers
 """
 
 
 def add(a: float, b: float) -> float:
-    """take a delay and await randomly for the result"""
+    """add two numbers (a, b)"""
     return a+b
