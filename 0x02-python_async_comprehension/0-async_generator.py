@@ -6,17 +6,14 @@ basi use of async geenrators
 
 import asyncio
 from random import uniform
-from typing import List
+from typing import Generator
 
 
-async def async_generator() -> List[float]:
-    """generate values async
-
-    Returns:
-        List[float]: [list of randome values]
+async def async_generator() -> Generator[float, None, None]:
+    """async generator
 
     Yields:
-        Iterator[List[float]]: [list of generated values]
+        Generator[float, None, None]: [description]
     """
     for i in range(10):
         yield uniform(0, 10)
