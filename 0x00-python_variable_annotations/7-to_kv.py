@@ -5,7 +5,7 @@ create a tuple
 from typing import Tuple, Union
 
 
-def to_kv(a: str, v: Union[int, float]) -> Tuple[str, float]:
+def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
     """create a tuple with the values
 
     Args:
@@ -15,4 +15,4 @@ def to_kv(a: str, v: Union[int, float]) -> Tuple[str, float]:
     Returns:
         Tuple[str, float]: [return the tuple of the values]
     """
-    return (a, v*v)
+    return (k, v*v)
