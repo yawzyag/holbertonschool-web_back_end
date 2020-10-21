@@ -9,7 +9,7 @@ def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
     """create a tuple with the values
 
     Args:
-        a (str): [string]
+        k (str): [string]
         v (Union[int, float]): [value, int or float]
 
     Returns:
