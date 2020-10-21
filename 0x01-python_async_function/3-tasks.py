@@ -9,7 +9,7 @@ import asyncio
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
-async def task_wait_random(max_delay: int) -> asyncio.Task:
-    """'IO' wait time is proportional to the max element."""
+def task_wait_random(max_delay: int) -> asyncio.Task:
+    """corutine task"""
     t = asyncio.create_task(wait_random(max_delay))
     return t
