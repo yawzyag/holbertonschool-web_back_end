@@ -5,10 +5,6 @@ create a tuple
 from typing import Tuple, Callable
 
 
-def f(my_float: float) -> float:
-    return my_float * my_float
-
-
 def make_multiplier(multiplier: float) -> Callable[[float], float]:
     """make a multiplier call
 
@@ -18,4 +14,14 @@ def make_multiplier(multiplier: float) -> Callable[[float], float]:
     Returns:
         Callable[[float], float]: [function to make the operation]
     """
+    def f(num: float) -> float:
+        """return the multiplication
+
+        Args:
+            num (float): [float num to mult]
+
+        Returns:
+            float: [result of num * multiplier]
+        """
+        return num * multiplier
     return f
