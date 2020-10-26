@@ -25,6 +25,7 @@ class LIFOCache(BaseCaching):
         """
         if (not key or not item):
             return
+        self.cache_list = self.cache_list[-4:]
         self.cache_list.append(key)
         self.cache_data[key] = item
         if (len(self.cache_data) > self.MAX_ITEMS):
