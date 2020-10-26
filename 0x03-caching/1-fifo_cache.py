@@ -4,6 +4,9 @@ fif cache
 """
 
 
+BaseCaching = __import__('base_caching').BaseCaching
+
+
 class FIFOCache(BaseCaching):
     """[FIFO cache]
     """
