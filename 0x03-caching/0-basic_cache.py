@@ -8,7 +8,7 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 
 class BasicCache(BaseCaching):
-    """[basi cache]
+    """[basic cache]
     """
 
     def __init__(self):
@@ -26,6 +26,14 @@ class BasicCache(BaseCaching):
         self.cache_data[key] = item
 
     def get(self, key):
+        """[metho to search a key in the cache]
+
+        Args:
+            key ([key to search]): [value to search]
+
+        Returns:
+            [value]: [item value in cache if exist]
+        """
         if (not key):
             return None
         return self.cache_data.get(key)
