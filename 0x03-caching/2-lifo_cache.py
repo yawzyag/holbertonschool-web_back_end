@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
 """class for basic cache
-fif cache
+LIFOCache
 """
 
+from collections import OrderedDict
 
 BaseCaching = __import__('base_caching').BaseCaching
 
 
-class FIFOCache(BaseCaching):
-    """[FIFO cache]
+class LIFOCache(BaseCaching):
+    """[LIFOCache cache]
     """
 
     def __init__(self):
         super().__init__()
+        self.cache_list = []
 
     def put(self, key, item):
         """[put in the dictionary cache]
@@ -23,10 +25,12 @@ class FIFOCache(BaseCaching):
         """
         if (not key or not item):
             return
+        self.cache_list.append(key)
         self.cache_data[key] = item
         if (len(self.cache_data) > self.MAX_ITEMS):
-            res = sorted(self.cache_data.keys())[0]
+            res = self.cache_list[-2]
             del self.cache_data[res]
+            del self.cache_list[-2]
             print("DISCARD: {}".format(res))
 
     def get(self, key):
