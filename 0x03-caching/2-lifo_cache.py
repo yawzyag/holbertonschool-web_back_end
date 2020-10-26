@@ -3,7 +3,6 @@
 LIFOCache
 """
 
-from collections import OrderedDict
 
 BaseCaching = __import__('base_caching').BaseCaching
 

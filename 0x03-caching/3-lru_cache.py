@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 """class for basic cache
-fif cache
+LRUCache
 """
+from collections import OrderedDict
+
+BaseCaching = __import__('base_caching').BaseCaching
 
 
-class FIFOCache(BaseCaching):
-    """[FIFO cache]
+class LRUCache(BaseCaching):
+    """[LRUCache cache]
     """
 
     def __init__(self):
         super().__init__()
+        self.cache = OrderedDict()
 
     def put(self, key, item):
         """[put in the dictionary cache]
@@ -21,10 +25,15 @@ class FIFOCache(BaseCaching):
         if (not key or not item):
             return
         self.cache_data[key] = item
+        self.cache[key] = item
+        self.cache.move_to_end(key)
         if (len(self.cache_data) > self.MAX_ITEMS):
-            res = sorted(self.cache_data.keys())[0]
+            res = next(iter(self.cache))
             del self.cache_data[res]
             print("DISCARD: {}".format(res))
+
+        if len(self.cache) > self.MAX_ITEMS:
+            self.cache.popitem(last=False)
 
     def get(self, key):
         """[metho to search a key in the cache]
@@ -37,4 +46,6 @@ class FIFOCache(BaseCaching):
         """
         if (not key):
             return None
+        if key in self.cache:
+            self.cache.move_to_end(key)
         return self.cache_data.get(key)
