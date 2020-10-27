@@ -5,7 +5,7 @@ pagination
 
 import csv
 import math
-from typing import List, Tuple, Dict, Any
+from typing import List, Tuple, Dict, Any, Optional
 
 
 class Server:
@@ -68,11 +68,12 @@ class Server:
         assert (isinstance(page, int) and isinstance(page_size, int))
         assert (page > 0 and page_size > 0)
         self.dataset()
-        get_index = self.index_range(page, page_size)
-        data = self.__dataset[get_index[0]:get_index[1]]
-        total_pages = math.ceil(len(self.__dataset) / page_size)
-        prev_page = page - 1 if page - 1 > 0 else None
-        next_page = page + 1 if page + 1 <= total_pages else None
+        get_index: Tuple[int, int] = self.index_range(page, page_size)
+        data: List[List] = self.__dataset[get_index[0]:get_index[1]]
+        total_pages: int = math.ceil(len(self.__dataset) / page_size)
+        prev_page: Optional[int] = page - 1 if page - 1 > 0 else None
+        next_page: Optional[int] = page + 1 if page + 1 <= total_pages\
+            else None
         return {
             "page_size": len(data),
             "page": page,
