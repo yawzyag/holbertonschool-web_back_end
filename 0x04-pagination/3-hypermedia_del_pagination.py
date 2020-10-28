@@ -43,19 +43,19 @@ class Server:
         assert (isinstance(index, int) and isinstance(page_size, int))
         data: Dict[int, List] = self.indexed_dataset()
         assert (len(data) > index)
-        value = page_size+index
         dataReturn = []
         i = index
-        while i < value:
-            if (data.get(i)):
-                dataReturn.append(data.get(i))
-            else:
-                value += 1
+        j = 0
+        while j < page_size:
+            while not data.get(i):
+                i += 1
+            dataReturn.append(data.get(i))
             i += 1
+            j += 1
 
         return {
             'index': index,
             'data': dataReturn,
             'page_size': page_size,
-            'next_index': value
+            'next_index': i
         }
