@@ -42,7 +42,7 @@ class Server:
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         assert (isinstance(index, int) and isinstance(page_size, int))
         data: Dict[int, List] = self.indexed_dataset()
-        assert (len(data) >= index)
+        assert (len(data) > index)
         value = page_size+index
         dataReturn = []
         i = index
