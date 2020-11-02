@@ -85,6 +85,11 @@ def get_logger() -> logging.Logger:
 
 
 def get_db():
+    """[get db conecttion]
+
+    Returns:
+        [type]: [db conection]
+    """
     try:
         cnx = mysql.connector.connect(**config)
         return cnx
