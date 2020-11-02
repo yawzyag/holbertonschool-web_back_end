@@ -21,6 +21,6 @@ def filter_datum(fields: List[str], redaction: str,
     """
     for val in fields:
         match = re.search(rf'{val}=([^{separator}#]*)', message)
-        if match:
+        if match and val:
             message = re.sub(match.group().split("=")[1], redaction, message)
     return message
