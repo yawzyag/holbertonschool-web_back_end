@@ -50,7 +50,6 @@ def filter_datum(fields: List[str], redaction: str,
     Returns:
         str: [final filter message]
     """
-    print(message)
     for val in fields:
         match = re.search(rf'{val}=([^{separator}#]*)', message)
         if match and val:
