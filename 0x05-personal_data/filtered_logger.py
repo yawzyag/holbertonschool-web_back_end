@@ -91,3 +91,25 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
     cnx = mysql.connector.connect(**config)
     return cnx
+
+
+def main() -> None:
+    """[main func]
+    """
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    for (name, email, phone, ssn, password,
+         ip, last_login, user_agent) in cursor:
+        d = "name={}; email={}; phone={}; ssn={}; ".format(
+            name, email, phone, ssn)
+        d += "password={}; ip={}; last_login={}; user_agent={};".format(
+            password, ip, last_login, user_agent)
+        log_record = logging.LogRecord(
+            "user_data", logging.INFO, None, None, d, None, None)
+        formatter = RedactingFormatter(fields=PII_FIELDS)
+        print(formatter.format(log_record))
+
+
+if __name__ == '__main__':
+    main()
