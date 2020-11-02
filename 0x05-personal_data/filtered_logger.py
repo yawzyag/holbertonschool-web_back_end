@@ -3,6 +3,7 @@
 filter specific data
 """
 from typing import List
+import re
 
 
 def filter_datum(fields: List[str], redaction: str,
@@ -18,11 +19,8 @@ def filter_datum(fields: List[str], redaction: str,
     Returns:
         str: [final filter message]
     """
-    parsedMessage = []
-    for item in message.split(separator):
-        itemcp = item.split("=")
-        if (itemcp[0] in fields):
-            itemcp[1] = redaction
-            print(item.split("="))
-        parsedMessage.append("=".join(itemcp))
-    return separator.join(parsedMessage)
+    for val in fields:
+        match = re.search(rf'{val}=([^{separator}#]*)', message)
+        if match:
+            message = re.sub(match.group().split("=")[1], redaction, message)
+    return message
