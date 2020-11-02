@@ -6,7 +6,6 @@ from typing import List
 import re
 import logging
 import mysql.connector
-from mysql.connector import errorcode
 import os
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
@@ -15,8 +14,7 @@ config = {
     'user': os.environ['PERSONAL_DATA_DB_USERNAME'],
     'password': os.environ['PERSONAL_DATA_DB_PASSWORD'],
     'host': os.environ['PERSONAL_DATA_DB_HOST'],
-    'database': os.environ['PERSONAL_DATA_DB_NAME'],
-    'raise_on_warnings': True
+    'database': os.environ['PERSONAL_DATA_DB_NAME']
 }
 
 
@@ -90,15 +88,5 @@ def get_db():
     Returns:
         [type]: [db conection]
     """
-    try:
-        cnx = mysql.connector.connect(**config)
-        return cnx
-    except mysql.connector.Error as err:
-        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-            print("Something is wrong with your user name or password")
-        elif err.errno == errorcode.ER_BAD_DB_ERROR:
-            print("Database does not exist")
-        else:
-            print(err)
-    else:
-        cnx.close()
+    cnx = mysql.connector.connect(**config)
+    return cnx
