@@ -24,6 +24,8 @@ if (os.getenv("AUTH_TYPE")):
 
 @app.before_request
 def before_request_func():
+    """[execute before each req]
+    """
     if (auth is not None):
         excluded = ['/api/v1/status/',
                     '/api/v1/unauthorized/', '/api/v1/forbidden/']
