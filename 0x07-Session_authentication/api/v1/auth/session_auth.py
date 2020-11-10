@@ -31,3 +31,16 @@ class SessionAuth(Auth):
             self.user_id_by_session_id[id] = user_id
             return id
         return None
+
+    def user_id_for_session_id(self, session_id: str = None) -> str:
+        """[user id for session]
+
+        Args:
+            session_id (str, optional): [id]. Defaults to None.
+
+        Returns:
+            str: [User ID based on a Session ID]
+        """
+        if session_id and isinstance(session_id, str):
+            return self.user_id_by_session_id.get(session_id)
+        return None
