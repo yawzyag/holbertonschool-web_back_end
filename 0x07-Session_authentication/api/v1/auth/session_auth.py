@@ -44,3 +44,13 @@ class SessionAuth(Auth):
         if session_id and isinstance(session_id, str):
             return self.user_id_by_session_id.get(session_id)
         return None
+
+    def current_user(self, request=None):
+        """[get user with cookie]
+
+        Args:
+            request ([type], optional): [User instance].
+            Defaults to None.
+        """
+        cookie = self.session_cookie(request)
+        return User.get(self.user_id_by_session_id.get(cookie))
