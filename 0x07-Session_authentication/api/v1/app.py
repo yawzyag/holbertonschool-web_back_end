@@ -11,6 +11,7 @@ from api.v1.auth.auth import Auth
 from api.v1.auth.basic_auth import BasicAuth
 from api.v1.auth.session_auth import SessionAuth
 from api.v1.auth.session_exp_auth import SessionExpAuth
+from api.v1.auth.session_db_auth import SessionDBAuth
 
 
 app = Flask(__name__)
@@ -18,6 +19,7 @@ app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 if (os.getenv("AUTH_TYPE")):
+    print(os.getenv("AUTH_TYPE"))
     if (os.getenv("AUTH_TYPE") == 'basic_auth'):
         auth = BasicAuth()
     elif os.getenv("AUTH_TYPE") == "auth":
@@ -26,6 +28,8 @@ if (os.getenv("AUTH_TYPE")):
         auth = SessionAuth()
     elif os.getenv("AUTH_TYPE") == "session_exp_auth":
         auth = SessionExpAuth()
+    elif os.getenv("AUTH_TYPE") == "session_db_auth":
+        auth = SessionDBAuth()
 
 
 @app.before_request
