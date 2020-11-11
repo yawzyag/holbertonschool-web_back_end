@@ -53,7 +53,8 @@ class SessionAuth(Auth):
             Defaults to None.
         """
         cookie = self.session_cookie(request)
-        return User.get(self.user_id_by_session_id.get(cookie))
+        if cookie:
+            return User.get(self.user_id_for_session_id(cookie))
 
     def destroy_session(self, request=None):
         """[delete session for user]
