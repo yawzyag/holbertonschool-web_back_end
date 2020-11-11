@@ -24,8 +24,10 @@ class SessionExpAuth(SessionAuth):
         """
         env_session = os.getenv("SESSION_DURATION")
         if (env_session):
-            if (int(env_session)):
-                self.session_duration = int(env_session)
+            try:
+                self.session_duration = int(duration)
+            except:
+                pass
 
     def create_session(self, user_id=None):
         """[create session with time]
