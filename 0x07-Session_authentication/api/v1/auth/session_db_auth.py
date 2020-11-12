@@ -26,11 +26,10 @@ class SessionDBAuth(SessionExpAuth):
         """
         if user_id:
             session = super().create_session(user_id)
-            if not session:
-                return
-            new_user = UserSession(user_id=user_id, session_id=session)
-            new_user.save()
-            return session
+            if session:
+                user = UserSession(user_id=user_id, session_id=session)
+                user.save()
+                return session
         return None
 
     def user_id_for_session_id(self, session_id=None):
@@ -45,13 +44,12 @@ class SessionDBAuth(SessionExpAuth):
         """
         if session_id:
             try:
-                user = UserSession.search({session_id: session_id})
-                for us_r in user:
-                    created = us_r.get('created_at')
-                    if created:
-                        if (datetime.now() < created +
-                                timedelta(seconds=self.session_duration)):
-                            return us_r.get('user_id')
+                user = UserSession.search({"session_id": session_id})
+                created = user[0].get('created_at')
+                if created:
+                    if (datetime.now() < created +
+                            timedelta(seconds=self.session_duration)):
+                        return user[0].get('user_id')
             except Exception:
                 return None
         return None
