@@ -4,7 +4,6 @@
 from api.v1.views import app_views
 from flask import abort, jsonify, request
 from models.user import User
-from api.v1.app import auth
 import os
 from flask import session
 
@@ -15,6 +14,7 @@ def auth_session() -> str:
     Return:
       - list of all User objects JSON represented
     """
+    from api.v1.app import auth
     email = request.form.get("email")
     if (not email):
         return jsonify({"error": "email missing"}), 400
@@ -43,6 +43,7 @@ def delete_session() -> str:
     Returns:
         str: [empty if delte session]
     """
+    from api.v1.app import auth
     state = auth.destroy_session(request)
     if (state):
         return jsonify({}), 200
