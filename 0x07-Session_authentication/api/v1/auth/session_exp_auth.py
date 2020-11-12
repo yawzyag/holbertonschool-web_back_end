@@ -25,7 +25,7 @@ class SessionExpAuth(SessionAuth):
         env_session = os.getenv("SESSION_DURATION")
         if (env_session):
             try:
-                self.session_duration = int(duration)
+                self.session_duration = int(env_session)
             except Exception:
                 pass
 
