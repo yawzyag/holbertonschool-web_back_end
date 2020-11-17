@@ -67,9 +67,12 @@ class DB:
         if (not kw):
             raise InvalidRequestError
         keys = kw.keys()
+        var = 0
         for key in keys:
             if (key not in types):
-                raise InvalidRequestError
+                1
+        if(var and len(keys) == 1):
+            raise InvalidRequestError
         session = self._session
         try:
             return session.query(User).filter_by(**kw).one()
