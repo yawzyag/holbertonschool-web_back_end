@@ -43,7 +43,8 @@ class DB:
         Returns:
             User: [user object]
         """
-
+        if (not email or not hashed_password):
+            return
         session = self._session
         new_user = User(email=email, hashed_password=hashed_password)
         session.add(new_user)
