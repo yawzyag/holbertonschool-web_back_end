@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-user module
+db module
 """
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -45,7 +45,8 @@ class DB:
         """
         if (not email or not hashed_password):
             return None
+        session = self._session
         new_user = User(email=email, hashed_password=hashed_password)
-        self._session.add(new_user)
-        self._session.commit()
+        session.add(new_user)
+        session.commit()
         return new_user
