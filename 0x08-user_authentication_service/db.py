@@ -85,7 +85,7 @@ class DB:
         if (not user_id):
             return None
         user = self.find_user_by(id=user_id)
-        
+
         if (not kw):
             raise InvalidRequestError
         session = self._session
