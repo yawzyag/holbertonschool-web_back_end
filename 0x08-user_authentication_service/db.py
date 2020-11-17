@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""
+user module
+"""
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -39,9 +43,10 @@ class DB:
         Returns:
             User: [user object]
         """
-        
+
         session = self._session
         new_user = User(email=email, hashed_password=hashed_password)
         session.add(new_user)
-        new_user = session.query(User).filter_by(email=email).first()
+        new_user = session.query(User).filter_by(
+            email=email, hashed_password=hashed_password).first()
         return new_user
