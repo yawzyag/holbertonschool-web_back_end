@@ -64,11 +64,11 @@ class DB:
         Returns:
             User: [description]
         """
-        if not kw:
+        if (not kw):
             raise InvalidRequestError
         keys = kw.keys()
         for key in keys:
-            if (not key in types):
+            if (key not in types):
                 raise InvalidRequestError
         session = self._session
         try:
