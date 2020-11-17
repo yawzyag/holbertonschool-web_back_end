@@ -5,8 +5,14 @@ db module
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 
 from user import Base, User
+
+
+types = ['id', 'email', 'hashed_password', 'session_id',
+         'reset_token']
 
 
 class DB:
@@ -43,10 +49,29 @@ class DB:
         Returns:
             User: [user object]
         """
-        if (not email or not hashed_password):
-            return None
         session = self._session
         new_user = User(email=email, hashed_password=hashed_password)
         session.add(new_user)
         session.commit()
         return new_user
+
+    def find_user_by(self, **kw: str) -> User:
+        """[summary]
+
+        Args:
+            val (any): [description]
+
+        Returns:
+            User: [description]
+        """
+        if not kw:
+            raise InvalidRequestError
+        keys = kw.keys()
+        for key in keys:
+            if (not key in types):
+                raise InvalidRequestError
+        session = self._session
+        try:
+            return session.query(User).filter_by(**kw).one()
+        except Exception:
+            raise NoResultFound
