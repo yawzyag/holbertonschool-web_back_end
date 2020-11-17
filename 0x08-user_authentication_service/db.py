@@ -75,3 +75,22 @@ class DB:
             return session.query(User).filter_by(**kw).one()
         except Exception:
             raise NoResultFound
+
+    def update_user(self, user_id: int, **kw) -> None:
+        """[update]
+
+        Args:
+            user_id (int): [id of user]
+        """
+        if (not user_id):
+            return None
+        user = self.find_user_by(id=user_id)
+        
+        if (not kw):
+            raise InvalidRequestError
+        session = self._session
+        for key, val in kw.items():
+            if (key not in types):
+                raise ValueError
+            setattr(user, key, val)
+        session.commit()
