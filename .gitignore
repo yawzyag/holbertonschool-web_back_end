@@ -169,3 +169,4 @@ venv.bak/
 .dmypy.json
 dmypy.json
 *main.sql
+a.db
