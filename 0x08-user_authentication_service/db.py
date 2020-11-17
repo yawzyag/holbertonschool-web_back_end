@@ -55,7 +55,7 @@ class DB:
         session.commit()
         return new_user
 
-    def find_user_by(self, **kw: str) -> User:
+    def find_user_by(self, **kw) -> User:
         """[summary]
 
         Args:
@@ -64,8 +64,12 @@ class DB:
         Returns:
             User: [description]
         """
-        if not kw or any(x not in types for x in kw):
+        if (not kw):
             raise InvalidRequestError
+        keys = kw.keys()
+        for key in keys:
+            if (key not in types):
+                raise InvalidRequestError
         session = self._session
         try:
             return session.query(User).filter_by(**kw).one()
