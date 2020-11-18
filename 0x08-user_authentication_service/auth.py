@@ -103,7 +103,7 @@ class Auth:
         if (session_id):
             try:
                 return self._db.find_user_by(session_id=session_id)
-            except Exception:
+            except NoResultFound:
                 return None
         return None
 
@@ -115,7 +115,8 @@ class Auth:
         """
         if (user_id):
             try:
-                self._db.update_user(user_id, session_id=None)
-            except Exception:
+                user = self._db.find_user_by(id=user_id)
+                self._db.update_user(user.id, session_id=None)
+            except NoResultFound:
                 return None
         return None
