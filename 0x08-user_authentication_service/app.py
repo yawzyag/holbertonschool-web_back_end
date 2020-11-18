@@ -2,7 +2,7 @@
 """
 Route module for the API
 """
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from auth import Auth
 app = Flask(__name__)
 
@@ -43,6 +43,35 @@ def create_user() -> str:
         except Exception as e:
             error_msg = {"message": "email already registered"}
     return jsonify(error_msg), 400
+
+
+@app.route('/sessions', methods=['POST'], strict_slashes=False)
+def login() -> str:
+    """[login]
+
+    Returns:
+        str: [json payload]
+    """
+    rj = None
+    error_msg = None
+    try:
+        rj = request.form
+    except Exception as e:
+        rj = None
+
+    if error_msg is None and rj:
+        try:
+            email = rj.get("email")
+            password = rj.get("password")
+            valid = AUTH.valid_login(email, password)
+            if (valid):
+                session_id = AUTH.create_session(email)
+                out = jsonify({"email": email, "message": "logged in"})
+                out.set_cookie("sesion_id", session_id)
+                return out
+        except Exception as e:
+            abort(401)
+    abort(401)
 
 
 if __name__ == "__main__":
