@@ -103,8 +103,8 @@ def profile():
     if (user):
         AUTH.destroy_session(user.id)
         return jsonify({"email": user.email})
-
-    abort(403)
+    else:
+        abort(403)
 
 
 if __name__ == "__main__":
