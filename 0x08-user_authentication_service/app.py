@@ -90,21 +90,19 @@ def logout():
         abort(403)
 
 
-@app.route('/profile', methods=['GET'], strict_slashes=False)
-def profile() -> str:
+@app.route('/profile', methods=['GET'])
+def profile():
     """[profile]
 
     Returns:
         str: [description]
     """
     session_id = request.cookies.get('session_id')
-    try:
-        user = AUTH.get_user_from_session_id(session_id)
-        if (user):
-            AUTH.destroy_session(user.id)
-            return jsonify({"email": user.email}), 200
-    except Exception:
-        pass
+    user = AUTH.get_user_from_session_id(session_id)
+    if (user):
+        AUTH.destroy_session(user.id)
+        return jsonify({"email": user.email}), 200
+
     abort(403)
 
 
