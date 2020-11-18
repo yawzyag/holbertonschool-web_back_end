@@ -68,7 +68,7 @@ def login() -> str:
             if (valid):
                 session_id = AUTH.create_session(email)
                 out = jsonify({"email": email, "message": "logged in"})
-                out.set_cookie("sesion_id", session_id)
+                out.set_cookie("session_id", session_id)
                 return out
         except Exception as e:
             abort(401)
