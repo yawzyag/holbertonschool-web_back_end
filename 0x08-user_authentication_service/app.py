@@ -74,7 +74,7 @@ def login() -> str:
     abort(401)
 
 
-@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
+@app.route('/sessions', methods=['DELETE'])
 def logout():
     """[logout user]
 
