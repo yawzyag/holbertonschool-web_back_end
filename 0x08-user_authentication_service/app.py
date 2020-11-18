@@ -6,6 +6,7 @@ from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
 app = Flask(__name__)
 
+app.url_map.strict_slashes = False
 AUTH = Auth()
 
 
@@ -19,7 +20,7 @@ def hello_world():
     return jsonify({"message": "Bienvenue"})
 
 
-@app.route('/users', methods=['POST'], strict_slashes=False)
+@app.route('/users', methods=['POST'])
 def create_user() -> str:
     """[create user]
 
@@ -45,7 +46,7 @@ def create_user() -> str:
     return jsonify(error_msg), 400
 
 
-@app.route('/sessions', methods=['POST'], strict_slashes=False)
+@app.route('/sessions', methods=['POST'])
 def login() -> str:
     """[login]
 
@@ -74,7 +75,7 @@ def login() -> str:
     abort(401)
 
 
-@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
+@app.route('/sessions', methods=['DELETE'])
 def logout():
     """[logout user]
 
@@ -101,7 +102,7 @@ def profile():
     user = AUTH.get_user_from_session_id(session_id)
     if (user):
         AUTH.destroy_session(user.id)
-        return jsonify({"email": user.email}), 200
+        return jsonify({"email": user.email})
 
     abort(403)
 
