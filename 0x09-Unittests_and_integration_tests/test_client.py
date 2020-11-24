@@ -32,13 +32,13 @@ class TestGithubOrgClient(unittest.TestCase):
         mock_method.assert_called_once()
 
     @parameterized.expand([
-        ("google", {'repos_url': 'google'})
+        ("google", {'repos_url': 'https://intranet.hbtn.io/projects/610#task-4539'})
     ])
     def test_public_repos_url(self, client, expect):
         # _public_repos_url
         with patch.object(GithubOrgClient, 'org',
                           new_callable=PropertyMock) as mock_method:
-            mock_method.return_value = expect
+            mock_method.return_value = "https://intranet.hbtn.io/projects/610"
             res = GithubOrgClient(client)._public_repos_url
             self.assertEqual(res, expect.get('repos_url'))
             mock_method.assert_called_once()
