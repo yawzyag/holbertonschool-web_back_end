@@ -52,10 +52,10 @@ class TestGithubOrgClient(unittest.TestCase):
             expect ([type]): [xcpet]
             mock_method ([type]): [metodh get_json]
         """
-        data = [{"name": "google"}, {"name": "abc"}]
-        mock_method.return_value = data
-        with patch.object(GithubOrgClient, '_public_repos_url',
-                          PropertyMock(return_value=data)) as mock_public:
+        mock_method.return_value = [{"name": "google"},
+                                    {"name": "abc"}]
+        with patch('client.GithubOrgClient._public_repos_url',
+                          new_callable=PropertyMock) as mock_public:
             mock_public.return_value = "repos_url"
             response = GithubOrgClient("google").public_repos()
             self.assertEqual(response, ['google', 'abc'])
