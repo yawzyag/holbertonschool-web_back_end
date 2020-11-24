@@ -32,8 +32,7 @@ class TestGithubOrgClient(unittest.TestCase):
         mock_method.assert_called_once()
 
     @parameterized.expand([
-        ("google", {'repos_url': 'google'}),
-        ("abc", {'repos_url': 'google'}),
+        ("google", {'repos_url': 'google'})
     ])
     def test_public_repos_url(self, client, expect):
         # _public_repos_url
