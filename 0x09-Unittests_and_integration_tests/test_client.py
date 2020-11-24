@@ -38,7 +38,7 @@ class TestGithubOrgClient(unittest.TestCase):
         # _public_repos_url
         with patch.object(GithubOrgClient, 'org',
                           new_callable=PropertyMock) as mock_method:
-            mock_method.return_value = "https://intranet.hbtn.io/projects/610"
+            mock_method.return_value = expect.get('repos_url')
             res = GithubOrgClient(client)._public_repos_url
             self.assertEqual(res, expect.get('repos_url'))
             mock_method.assert_called_once()
