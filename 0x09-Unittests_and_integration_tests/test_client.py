@@ -4,7 +4,6 @@
 import unittest
 from unittest.mock import patch, PropertyMock
 from parameterized import parameterized
-import client
 from client import GithubOrgClient
 
 
@@ -53,11 +52,12 @@ class TestGithubOrgClient(unittest.TestCase):
             expect ([type]): [xcpet]
             mock_method ([type]): [metodh get_json]
         """
-        data = [{'name': 'google'}, {'name': 'abc'}]
-        mock_method.return_value = data
-        with patch('client.GithubOrgClient._public_repos_url',
-                   PropertyMock(return_value=data)) as mock_public:
-            response = client.GithubOrgClient('test')
-            self.assertEqual(response.public_repos(), ['google', 'abc'])
+        GithubOrgClient = __import__('client').GithubOrgClient
+        mock_method.return_value = [{"name": "google"},
+                                    {"name": "abc"}]
+        with patch.object(GithubOrgClient, '_public_repos_url',
+                          new_callable=PropertyMock) as mock_public:
+            response = GithubOrgClient("google").public_repos()
+            self.assertEqual(response, ['google', 'abc'])
             mock_method.assert_called_once()
             mock_public.assert_called_once()
