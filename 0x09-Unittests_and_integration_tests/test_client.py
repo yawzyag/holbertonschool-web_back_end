@@ -18,16 +18,15 @@ class TestGithubOrgClient(unittest.TestCase):
         ("google", {'login': 'google'}),
         ("abc", {'login': 'google'}),
     ])
-    def test_org(self, client, expect):
+    @patch("client.get_json")
+    def test_org(self, client, expect, mock_method):
         """[test org]
 
         Args:
             client ([type]): [url]
             expect ([type]): [value to excpect]
         """
-        with patch("client.get_json") as mock_method:
-            mock_method.return_value = expect
-            res = GithubOrgClient(client).org
-            print(res)
-            self.assertEqual(res, expect)
-            mock_method.assert_called_once()
+        mock_method.return_value = expect
+        res = GithubOrgClient(client).org
+        self.assertEqual(res, expect)
+        mock_method.assert_called_once()
