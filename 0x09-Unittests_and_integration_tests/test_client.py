@@ -60,3 +60,7 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(response, ['google', 'abc'])
             mock_method.assert_called_once()
             mock_public.assert_called_once()
+
+
+if __name__ == '__main__':
+    unittest.main()
