@@ -44,8 +44,7 @@ class TestGithubOrgClient(unittest.TestCase):
             mock_method.assert_called_once()
 
     @parameterized.expand([
-        ("google", {'name': 'google'}),
-        ("abc", {'name': 'google'}),
+        ("google", {'name': 'google'})
     ])
     @patch("client.get_json")
     def test_public_repos(self, client, expect, mock_method):
