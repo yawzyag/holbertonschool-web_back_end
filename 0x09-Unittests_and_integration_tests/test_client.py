@@ -3,8 +3,10 @@
 """
 import unittest
 from unittest.mock import patch, PropertyMock
-from parameterized import parameterized
+from parameterized import parameterized, parameterized_class
 from client import GithubOrgClient
+from fixtures import TEST_PAYLOAD
+import client
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -32,16 +34,16 @@ class TestGithubOrgClient(unittest.TestCase):
         mock_method.assert_called_once()
 
     @parameterized.expand([
-        ("google", {'repos_url': 'https://intranet.hbtn.io/projects/610#task-4539'})
+        ("google", {'repos_url': 'https://intranet.hbtn.io/projects/610'})
     ])
-    def test_public_repos_url(self, client, expect):
-        # _public_repos_url
-        with patch.object(GithubOrgClient, 'org',
-                          new_callable=PropertyMock) as mock_method:
-            mock_method.return_value = expect.get('repos_url')
-            res = GithubOrgClient(client)._public_repos_url
-            self.assertEqual(res, expect.get('repos_url'))
-            mock_method.assert_called_once()
+    def test_public_repos_url(self, name, expect):
+        """
+        Test _public_repos_url
+        """
+        with patch('client.GithubOrgClient.org',
+                   PropertyMock(return_value=expect)):
+            response = client.GithubOrgClient(name)._public_repos_url
+            self.assertEqual(response, expect.get('repos_url'))
 
     @patch("client.get_json")
     def test_public_repos(self, mock_method):
@@ -75,6 +77,26 @@ class TestGithubOrgClient(unittest.TestCase):
         """
         status = GithubOrgClient.has_license(dict_val, key)
         self.assertEqual(status, expect)
+
+
+@parameterized_class(['org_payload', 'repos_payload',
+                      'expected_repos', 'apache2_repos'], TEST_PAYLOAD)
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """[Integration test]
+
+    Args:
+        unittest ([type]): [base]
+    """
+    @classmethod
+    def setUpClass(cls, mock_method):
+        cls.mock_get_patcher = patch('requests.get', side_effect=[
+            cls.org_payload, cls.repos_payload
+        ])
+        cls.mock_get = cls.mock_get_patcher.start()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.mock_get_patcher.stop()
 
 
 if __name__ == '__main__':
