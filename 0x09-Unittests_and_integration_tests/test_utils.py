@@ -4,8 +4,6 @@
 import unittest
 from parameterized import parameterized
 
-access_nested_map = __import__('utils').access_nested_map
-
 
 class TestAccessNestedMap(unittest.TestCase):
     """[test access nest map]
@@ -21,6 +19,7 @@ class TestAccessNestedMap(unittest.TestCase):
     def test_access_nested_map(self, nested_map, path, expected):
         """[testing nested map]
         """
+        access_nested_map = __import__('utils').access_nested_map
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
 
