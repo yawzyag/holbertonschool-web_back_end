@@ -88,7 +88,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         unittest ([type]): [base]
     """
     @classmethod
-    def setUpClass(cls, mock_method):
+    def setUpClass(cls):
         cls.mock_get_patcher = patch('requests.get', side_effect=[
             cls.org_payload, cls.repos_payload
         ])
@@ -97,6 +97,17 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         cls.mock_get_patcher.stop()
+
+    def test_public_repos(self):
+        """[public repos]
+
+        Args:
+            mock_method ([type]): [metodh get_json]
+        """
+
+    def test_public_repos_with_license(self):
+        """[public with license]
+        """
 
 
 if __name__ == '__main__':
