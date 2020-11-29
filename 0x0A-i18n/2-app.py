@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """[basic flask app]
 """
-from flask import Flask, render_template
+from flask import Flask, request, render_template
 from flask_babel import Babel
 app = Flask(__name__)
 
@@ -21,6 +21,16 @@ app.config.from_object(Config)
 babel = Babel(app)
 
 
+@babel.localeselector
+def get_locale():
+    """[get local lng]
+
+    Returns:
+        [type]: [local lng]
+    """
+    return request.accept_languages.best_match(Config.LANGUAGES)
+
+
 @app.route('/')
 def hello_world():
     """[basic template]
@@ -28,8 +38,8 @@ def hello_world():
     Returns:
         [type]: [template]
     """
-    return render_template('1-index.html')
+    return render_template('2-index.html')
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+    app.run(host="0.0.0.0", port="6090")
