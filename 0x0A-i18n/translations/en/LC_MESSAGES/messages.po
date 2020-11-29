@@ -19,21 +19,21 @@ msgstr ""
 "Generated-By: Babel 2.9.0\n"
 
 #: templates/*-index.html:6
-msgid "home_title"
+msgid "%(home_title)"
 msgstr "Welcome to Holberton"
 
 #: templates/*index.html:9
-msgid "home_header"
+msgid "%(home_header)"
 msgstr "Hello world!"
 
 #: templates/*index.html:11
-msgid "logged_in_as"
+msgid "%(logged_in_as)"
 msgstr "You are logged in as %(username)s."
 
 #: templates/*index.html:13
-msgid "not_logged_in"
+msgid "%(not_logged_in)"
 msgstr "You are not logged in."
 
 #: templates/*index.html:15
-msgid "current_time_is"
+msgid "%(current_time_is)"
 msgstr "The current time is %(current_time)s."
