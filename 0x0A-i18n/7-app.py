@@ -37,8 +37,17 @@ def get_locale():
         [type]: [local lng]
     """
     locale = request.args.get('locale')
-    if (locale and locale in Config.LANGUAGES):
+    if (locale in Config.LANGUAGES):
         return locale
+    user = getattr(g, 'user', None)
+    if (user):
+        locale = user.get('locale')
+        if (locale in Config.LANGUAGES):
+            return locale
+    locale_header = request.headers.get('locale')
+    if (locale_header in Config.LANGUAGES):
+        return locale_header
+
     return request.accept_languages.best_match(Config.LANGUAGES)
 
 
@@ -72,7 +81,7 @@ def hello_world():
         [type]: [template]
     """
     user = getattr(g, 'user', None)
-    return render_template('5-index.html', user=user)
+    return render_template('7-index.html', user=user)
 
 
 if __name__ == "__main__":

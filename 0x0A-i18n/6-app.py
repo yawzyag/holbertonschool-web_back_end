@@ -81,7 +81,7 @@ def hello_world():
         [type]: [template]
     """
     user = getattr(g, 'user', None)
-    return render_template('5-index.html', user=user)
+    return render_template('6-index.html', user=user)
 
 
 if __name__ == "__main__":
