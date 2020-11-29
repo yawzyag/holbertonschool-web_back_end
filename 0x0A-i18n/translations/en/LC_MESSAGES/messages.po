@@ -22,14 +22,18 @@ msgstr ""
 msgid "home_title"
 msgstr "Welcome to Holberton"
 
-#: templates/*-index.html:9
+#: templates/*index.html:9
 msgid "home_header"
 msgstr "Hello world!"
 
-#: templates/*-index.html:11
+#: templates/*index.html:11
 msgid "logged_in_as"
 msgstr "You are logged in as %(username)s."
 
-#: templates/*-index.html:13
+#: templates/*index.html:13
 msgid "not_logged_in"
 msgstr "You are not logged in."
+
+#: templates/*index.html:15
+msgid "current_time_is"
+msgstr "The current time is %(current_time)s."
