@@ -69,6 +69,8 @@ def get_user(login_as: str):
 
 @app.before_request
 def before_request_func():
+    """[doc]
+    """
     id_u = request.args.get('login_as')
     g.user = get_user(id_u)
 

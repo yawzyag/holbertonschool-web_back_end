@@ -42,7 +42,7 @@ def get_locale():
     return request.accept_languages.best_match(Config.LANGUAGES)
 
 
-def get_user(login_as: str):
+def get_user():
     """[get user]
 
     Args:
@@ -51,6 +51,7 @@ def get_user(login_as: str):
     Returns:
         str: [description]
     """
+    login_as = request.args.get('login_as')
     if (login_as):
         user_d = users.get(int(login_as))
         if (user_d):
@@ -60,8 +61,9 @@ def get_user(login_as: str):
 
 @app.before_request
 def before_request_func():
-    id_u = request.args.get('login_as')
-    g.user = get_user(id_u)
+    """[doc]
+    """
+    g.user = get_user()
 
 
 @app.route('/')
