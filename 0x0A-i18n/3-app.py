@@ -2,7 +2,7 @@
 """[basic flask app]
 """
 from flask import Flask, request, render_template
-from flask_babel import Babel
+from flask_babel import Babel, _
 app = Flask(__name__)
 
 
@@ -38,7 +38,10 @@ def hello_world():
     Returns:
         [type]: [template]
     """
-    return render_template('3-index.html')
+    home_title = _("home_title")
+    home_header = _("home_header")
+    return render_template('3-index.html',
+                           home_title=home_title, home_header=home_header)
 
 
 if __name__ == "__main__":
