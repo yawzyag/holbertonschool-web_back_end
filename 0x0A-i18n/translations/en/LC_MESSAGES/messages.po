@@ -22,6 +22,6 @@ msgstr ""
 msgid "home_title"
 msgstr "Welcome to Holberton"
 
-#: *app.py:42
+#: templates/*index.html
 msgid "home_header"
 msgstr "Hello world!"
