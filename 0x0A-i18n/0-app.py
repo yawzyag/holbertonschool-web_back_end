@@ -12,10 +12,7 @@ def hello_world():
     Returns:
         [type]: [template]
     """
-    title = "Welcome to Holberton"
-    hello = "Hello world"
-    return render_template('0-index.html',
-                           title=title, hello=hello)
+    return render_template('0-index.html')
 
 
 if __name__ == "__main__":
