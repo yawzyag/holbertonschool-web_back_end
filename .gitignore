@@ -170,3 +170,4 @@ venv.bak/
 dmypy.json
 *main.sql
 a.db
+dump.rdb

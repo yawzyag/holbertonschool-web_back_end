@@ -26,5 +26,8 @@ class Cache():
             str: [saved]
         """
         key = str(uuid.uuid4())
-        self._redis.set(key, data)
+        try:
+            self._redis.set(key, data)
+        except Exception:
+            pass
         return key
