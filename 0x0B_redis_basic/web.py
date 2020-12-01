@@ -32,6 +32,10 @@ def web_count(method: Callable) -> Callable:
         # print('Calling decorated function')
         r.incr(key)
         r.expire(key, timedelta(seconds=10))
+
+        method_return = method(args[0])
+        r.set(args[0], method_return)
+        r.expire(args[0], timedelta(seconds=10))
         return method(*args, **kwds)
     return wrapper
 
