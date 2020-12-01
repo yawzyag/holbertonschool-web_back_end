@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """[redis]
+    module of redis
 """
 import redis
 import uuid
@@ -8,10 +9,12 @@ from typing import Union, Optional, Callable
 
 class Cache:
     """[cache]
+        class to set cache with redis
     """
 
     def __init__(self):
         """[constructor]
+            constructor for redis instance
         """
         self._redis = redis.Redis()
         self._redis.flushdb()
