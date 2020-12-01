@@ -6,7 +6,7 @@ import uuid
 from typing import Union, Optional, Callable
 
 
-class Cache():
+class Cache:
     """[cache]
     """
 
@@ -32,7 +32,7 @@ class Cache():
         except Exception:
             pass
 
-    def get(self, key: str, fn: Optional[Callable]) \
+    def get(self, key: str, fn: Optional[Callable])\
             -> Union[str, bytes, int, float]:
         """[get from redis]
 
