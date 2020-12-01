@@ -17,4 +17,3 @@ for value, fn in TEST_CASES.items():
     key = cache.store(value)
     # print(cache.get(key, fn=fn), value, fn)
     assert cache.get(key, fn=fn) == value
-

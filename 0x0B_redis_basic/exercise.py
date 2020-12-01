@@ -26,11 +26,9 @@ class Cache:
             str: [saved]
         """
         key = str(uuid.uuid4())
-        try:
-            self._redis.mset({key: data})
-            return key
-        except Exception:
-            pass
+
+        self._redis.mset({key: data})
+        return key
 
     def get(self, key: str, fn: Optional[Callable])\
             -> Union[str, bytes, int, float]:
