@@ -27,7 +27,7 @@ class Cache():
         """
         key = str(uuid.uuid4())
         try:
-            self._redis.set(key, data)
+            self._redis.mset({key: data})
             return key
         except Exception:
             pass
