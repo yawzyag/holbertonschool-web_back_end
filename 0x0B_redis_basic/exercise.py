@@ -5,6 +5,31 @@
 import redis
 import uuid
 from typing import Union, Optional, Callable
+from functools import wraps
+
+
+def count_calls(method: Callable) -> Callable:
+    """[count number of calls]
+
+    Args:
+        method (Callable): [method]
+
+    Returns:
+        Callable: [method]
+    """
+    key = method.__qualname__
+
+    @wraps(method)
+    def wrapper(self, *args, **kwds):
+        """[wrapper of decorator]
+
+        Returns:
+            [type]: [description]
+        """
+        # print('Calling decorated function')
+        self._redis.incr(key)
+        return method(self, *args, **kwds)
+    return wrapper
 
 
 class Cache:
@@ -19,6 +44,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """[store]
 
@@ -33,7 +59,7 @@ class Cache:
         self._redis.mset({key: data})
         return key
 
-    def get(self, key: str, fn: Optional[Callable])\
+    def get(self, key: str, fn: Optional[Callable] = None)\
             -> Union[str, bytes, int, float]:
         """[get from redis]
 
