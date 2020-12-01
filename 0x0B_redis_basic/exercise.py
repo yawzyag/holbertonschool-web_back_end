@@ -126,3 +126,29 @@ class Cache:
         result = 0
         result = result * 256 + int(numberb)
         return result
+
+
+def replay(method: Callable):
+    """[get info]
+
+    Args:
+        method (Callable): [method store instance]
+    """
+    # print(method.__qualname__)
+    self_ = method.__self__
+    store_name = method.__qualname__
+    # print("{}".format(store_name))
+    store_key = self_.get(store_name)
+    if (store_key is None):
+        return
+    times = self_.get_str(store_key)
+    inputs = self_._redis.lrange(store_name + ":inputs", 0, -1)
+    outputs = self_._redis.lrange(store_name + ":outputs", 0, -1)
+
+    print("{} was called {} times:".format(store_name, times))
+    zipvalues = zip(inputs, outputs)
+    result_list = list(zipvalues)
+    for k, v in result_list:
+        name = self_.get_str(k)
+        val = self_.get_str(v)
+        print("{}(*{}) -> {}".format(store_name, name, val))
