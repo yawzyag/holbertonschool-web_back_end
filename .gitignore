@@ -171,3 +171,4 @@ dmypy.json
 *main.sql
 a.db
 dump.rdb
+names.sql
