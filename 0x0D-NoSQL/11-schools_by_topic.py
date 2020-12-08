@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """[search in db]
 """
-import re
 
 
 def schools_by_topic(mongo_collection, topic):
