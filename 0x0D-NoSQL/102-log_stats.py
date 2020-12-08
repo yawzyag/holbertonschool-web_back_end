@@ -32,11 +32,7 @@ def get_top_ips(collection):
     """
     pipeline = [
         {"$group": {"_id": "$ip", "count": {"$sum": 1}}}, {
-            "$sort": {"count": -1}}, {"$limit": 10}, {"$project": {
-                "_id": 0,
-                "ip": "$_id",
-                "count": 1
-            }}
+            "$sort": {"count": -1}}, {"$limit": 10}
     ]
     return collection.aggregate(pipeline)
 
@@ -54,4 +50,4 @@ if __name__ == "__main__":
     print("{} status check".format(status_check))
     print("IPs:")
     for ip in get_top_ips(nginx_collection):
-        print("\t{} {}".format(ip.get("ip"), ip.get("count")))
+        print("\t{}: {}".format(ip.get("_id"), ip.get("count")))
