@@ -2,7 +2,6 @@
 """[sorted results]
 """
 from pymongo import ASCENDING, DESCENDING
-update_topics = __import__('10-update_topics').update_topics
 
 
 def top_students(mongo_collection):
