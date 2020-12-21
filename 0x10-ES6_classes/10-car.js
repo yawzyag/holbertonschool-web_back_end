@@ -5,7 +5,6 @@ export default class Car {
     this._color = color;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   cloneCar() {
     const orig = this;
     return Object.assign(Object.create(Object.getPrototypeOf(orig)), {
