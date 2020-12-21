@@ -42,5 +42,3 @@ export const listOfStudents = [
   student4,
   student5,
 ];
-
-export default listOfStudents;
