@@ -7,6 +7,6 @@ const cleanSet = (set, startString) => {
       string += `-${element.slice(startString.length)}`;
     }
   });
-  return string.slice(0, string.length - 1);
+  return string.slice(1, string.length);
 };
 export default cleanSet;
