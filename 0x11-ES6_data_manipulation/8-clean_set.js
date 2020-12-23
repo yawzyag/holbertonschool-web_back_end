@@ -1,5 +1,5 @@
 const cleanSet = (set, startString) => {
-  if (!startString) return '';
+  if (!startString || startString.length < 1) return '';
 
   let string = '';
   set.forEach((element) => {
@@ -7,6 +7,6 @@ const cleanSet = (set, startString) => {
       string += `-${element.slice(startString.length)}`;
     }
   });
-  return string.slice(1, string.length);
+  return string.substring(1);
 };
 export default cleanSet;
