@@ -4,7 +4,7 @@ const cleanSet = (set, startString) => {
   let string = '';
   set.forEach((element) => {
     if (element && element.startsWith(startString)) {
-      string += `-${element.split(startString).pop()}`;
+      string += `-${element.slice(startString.length)}`;
     }
   });
   return string.substring(1);
